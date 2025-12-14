@@ -128,12 +128,13 @@ upper = 1
 lower = 2
 adjust = 3
 
-[behavior.tap_hold]
-chordal_hold = true
+[behavior.morse]
+enable_flow_tap = true
+gap_timeout = "250ms"
 hold_on_other_press = true
 hold_timeout = "250ms"
-permissive_hold = true
 prior_idle_time = "120ms"
+unilateral_tap = true
 
 [behavior.combo]
 timeout = "150ms"
