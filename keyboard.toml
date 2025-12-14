@@ -6,6 +6,11 @@ product_id = 0x4643
 manufacturer = "RMK"
 chip = "nrf52840"
 
+[host]
+# Unlock combination: simultaneous press of specified keys
+# Format: [[row, col], [row, col], ...]
+unlock_keys = [[0, 0], [0, 1]]  # Keys at (row=0,col=0) and (row=0,col=1)
+
 [layout]
 rows = 4
 cols = 10
@@ -51,6 +56,20 @@ debounce_time = 50
 
 [ble]
 enabled = true
+# nRF52840's saadc pin for reading battery level, you can use a pin
+# number or "vddh"
+battery_adc_pin = "vddh"
+# The voltage divider setting for saadc. This setting should be
+# ignored when using "vddh" as the adc pin.
+#
+# For example, nice!nano has 806 + 2M resistors. The saadc measures
+# voltage on the 2M resistor, so the two values should be set to 2000
+# and 2806
+adc_divider_measured = 2000
+adc_divider_total = 2806
+# Set the BLE tx power; higher means better signal but more power
+# consumption. For nRF52840 the maximum tx power is 8.
+# default_tx_power = 8
 
 [storage]
 enabled = true
@@ -58,6 +77,16 @@ enabled = true
 [behavior]
 tap_hold = { permissive_hold = true, chordal_hold = true, hold_on_other_press = true, prior_idle_time = "120ms", hold_timeout = "250ms" }
 tri_layer = { upper = 1, lower = 2, adjust = 3 }
+
+[behavior.combo]
+timeout = "50ms"
+combos = [
+  # Press Tab and Enter keys simultaneously to output Escape key
+  { actions = ["Tab", "Enter"], output = "Escape" },
+
+  # Press Enter and Space keys simultaneously to output CapsWordToggle key
+  { actions = ["Enter", "Space"], output = "CapsWordToggle" },
+]
 
 [split]
 connection = "ble"
