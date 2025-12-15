@@ -108,7 +108,6 @@ wn9 = "WM(9, LGui)"
 [rmk]
 # The number of available BLE profiles
 ble_profiles_num = 6
-debounce_time = 50
 
 [ble]
 enabled = true
@@ -128,20 +127,27 @@ adc_divider_total = 2806
 # default_tx_power = 8
 
 [storage]
-enabled = true
 
-[behavior]
-tap_hold = { permissive_hold = true, chordal_hold = true, hold_on_other_press = true, prior_idle_time = "120ms", hold_timeout = "250ms" }
-tri_layer = { upper = 1, lower = 2, adjust = 3 }
+[behavior.tap_hold]
+chordal_hold = true
+hold_on_other_press = true
+hold_timeout = "250ms"
+permissive_hold = true
+prior_idle_time = "120ms"
+
+[behavior.tri_layer]
+upper = 1
+lower = 2
+adjust = 3
 
 [behavior.combo]
-timeout = "50ms"
+timeout = "150ms"
 combos = [
   # Press Tab and Enter keys simultaneously to output Escape key
-  { actions = ["Tab", "ent"], output = "esc" },
+  { actions = ["Tab", "Enter"], output = "Escape" },
 
   # Press Enter and Space keys simultaneously to output CapsWordToggle key
-  { actions = ["ent", "spc"], output = "CapsWordToggle" },
+  { actions = ["Enter", "Space"], output = "CapsWordToggle" },
 ]
 
 [split]
