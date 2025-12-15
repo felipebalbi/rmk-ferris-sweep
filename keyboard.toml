@@ -1,25 +1,20 @@
 [keyboard]
-name = "ferris_sweep"
-product_name = "ferris_sweep"
+name = "Ferris Sweep"
+product_name = "Ferris Sweep"
 vendor_id = 0x4c4b
 product_id = 0x4643
-manufacturer = "RMK"
+manufacturer = "Balbi"
 chip = "nrf52840"
-
-[host]
-# Unlock combination: simultaneous press of specified keys
-# Format: [[row, col], [row, col], ...]
-unlock_keys = [[0, 0], [0, 1]]  # Keys at (row=0,col=0) and (row=0,col=1)
 
 [layout]
 rows = 4
 cols = 10
 layers = 4
 matrix_map = """
-(0,0) (0,1) (0,2) (0,3) (0,4)    (0,5) (0,6) (0,7) (0,8) (0,9)
-(1,0) (1,1) (1,2) (1,3) (1,4)    (1,5) (1,6) (1,7) (1,8) (1,9)
-(2,0) (2,1) (2,2) (2,3) (2,4)    (2,5) (2,6) (2,7) (2,8) (2,9)
-(3,0) (3,1) (3,2) (3,3) (3,4)    (3,5) (3,6) (3,7) (3,8) (3,9)
+(0, 0)   (0, 1)   (0, 2)   (0, 3)   (0, 4)    (0, 5)   (0, 6)   (0, 7)   (0, 8)   (0, 9)
+(1, 0)   (1, 1)   (1, 2)   (1, 3)   (1, 4)    (1, 5)   (1, 6)   (1, 7)   (1, 8)   (1, 9)
+(2, 0)   (2, 1)   (2, 2)   (2, 3)   (2, 4)    (2, 5)   (2, 6)   (2, 7)   (2, 8)   (2, 9)
+                                    (3, 3)    (3, 4)    (3, 5)   (3, 6)
 """
 
 [[layer]]
@@ -28,25 +23,25 @@ keys = """
 Q      W      E      R      T      Y      U      I      O    P
 @a     @s     @d     @f     G      H      @j     @k     @l   @semi
 Z      X      C      V      B      N      M      Comma  Dot  Slash
-_      _      _      @l1    ent    spc    @l2    _      _    _
+                     @l1    ent    spc    @l2
 """
 
 [[layer]]
 name = "left"
 keys = """
-@exc   @at    @hash  @dol   @perc  @car   @amp   @str   @lp  @rp
-1      2      3      4      5      6      7      8      9    0
-@wn1   @wn2   @wn3   @wn4   @wn5   @wn6   @wn7   @wn8   @wn9 @wn8
-_      _      _      _          _      _      _      _      _    _
+@exc   @at    @hash  @dol   @perc  @car   @amp   @str   @lpar @rpar
+1      2      3      4      5      6      7      8      9     0
+@wn1   @wn2   @wn3   @wn4   @wn5   @wn6   @wn7   @wn8   @wn9  @wn8
+                     _      _      _      _
 """
 
 [[layer]]
 name = "right"
 keys = """
-]      @rc    @rp    @ra    pscr   ins   Home    pgup   pgdn End
-[      @lc    @lp    @la    _      del   Left    Up     Down Right
+rbrc   @rcur  @rpar  @rang  pscr   ins   Home    pgup   pgdn End
+lbrc   @lcur  @lpar  @lang  _      del   Left    Up     Down Right
 grv    -      =      '      \\     @pipe @dqut   @plus  @und @tild 
-_      _      _      _      _      r_ctrl _      _      _    _
+                     _      _      r_ctrl _
 """
 
 [[layer]]
@@ -55,7 +50,7 @@ keys = """
 Lock   No     No     Reboot     User0  User3  F1     F2     F3   F4
 l_alt  l_ctrl No     Bootloader User1  User4  F5     F6     F7   F8
 No     No     No     User9      User2  User5  F9     F10    F11  F12
-_      _      _      _          _      _      _      _      _    _
+                     _          _      _      _
 """
 
 [aliases]
@@ -70,14 +65,14 @@ j = "MT(J, RCtrl)"
 k = "MT(K, RGui)"
 l = "MT(L, RAlt)"
 
-la = "SHIFTED(Comma)"
-ra = "SHIFTED(Dot)"
+lang = "SHIFTED(Comma)"
+rang = "SHIFTED(Dot)"
 
-lc = "SHIFTED([)"
-rc = "SHIFTED(])"
+lcur = "SHIFTED([)"
+rcur = "SHIFTED(])"
 
-lp = "SHIFTED(9)"
-rp = "SHIFTED(0)"
+lpar = "SHIFTED(9)"
+rpar = "SHIFTED(0)"
 
 amp = "SHIFTED(7)"
 at = "SHIFTED(2)"
@@ -109,6 +104,8 @@ wn9 = "WM(9, LGui)"
 # The number of available BLE profiles
 ble_profiles_num = 6
 
+[storage]
+
 [ble]
 enabled = true
 # nRF52840's saadc pin for reading battery level, you can use a pin
@@ -126,7 +123,10 @@ adc_divider_total = 2806
 # consumption. For nRF52840 the maximum tx power is 8.
 # default_tx_power = 8
 
-[storage]
+[behavior.tri_layer]
+upper = 1
+lower = 2
+adjust = 3
 
 [behavior.tap_hold]
 chordal_hold = true
@@ -134,11 +134,6 @@ hold_on_other_press = true
 hold_timeout = "250ms"
 permissive_hold = true
 prior_idle_time = "120ms"
-
-[behavior.tri_layer]
-upper = 1
-lower = 2
-adjust = 3
 
 [behavior.combo]
 timeout = "150ms"
@@ -149,6 +144,14 @@ combos = [
   # Press Enter and Space keys simultaneously to output CapsWordToggle key
   { actions = ["Enter", "Space"], output = "CapsWordToggle" },
 ]
+
+# REVISIT: Unclear how to use these. Example doesn't compile.
+# [behavior.morse.profiles]
+# Home row mods
+# H = { unilateral_tap = true, permissive_hold = true, hold_timeout = "250ms", gap_timeout = "250ms" }
+
+# Thumb cluster
+# T = { hold_on_other_press = true, unilateral_tap = false, hold_timeout = "200ms", gap_timeout = "200ms" }
 
 [split]
 connection = "ble"
@@ -165,7 +168,7 @@ direct_pins = [
     ["P0_11", "P1_15", "P0_02", "P0_29", "P0_31"],
     ["P1_13", "P1_11", "P0_10", "P0_09", "P0_06"],
     ["P0_17", "P0_20", "P0_22", "P0_24", "P1_00"],
-    ["_",     "_",     "_",     "P1_04", "P1_06"]
+    ["_",     "_",     "_",     "P1_04", "P1_06"],
 ]
 
 [[split.peripheral]]
@@ -180,5 +183,5 @@ direct_pins = [
     ["P0_31", "P0_29", "P0_02", "P1_15", "P0_11"],
     ["P0_06", "P0_09", "P0_10", "P1_11", "P1_13"],
     ["P1_00", "P0_24", "P0_22", "P0_20", "P0_17"],
-    ["P1_06", "P1_04", "_",     "_",     "_"]
+    ["P1_06", "P1_04", "_",     "_",     "_"    ],
 ]
