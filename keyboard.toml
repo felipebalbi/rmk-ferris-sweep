@@ -140,7 +140,7 @@ unilateral_tap = true
 timeout = "150ms"
 combos = [
   # Press Tab and Enter keys simultaneously to output Escape key
-  { actions = ["Tab", "Enter"], output = "Escape" },
+  { actions = ["LT(1, Tab)", "Enter"], output = "Escape" },
 
   # Press Enter and Space keys simultaneously to output CapsWordToggle key
   { actions = ["Enter", "Space"], output = "CapsWordToggle" },
