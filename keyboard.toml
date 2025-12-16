@@ -134,7 +134,7 @@ lower = 2
 adjust = 3
 
 [behavior.morse]
-enable_flow_tap = true
+# enable_flow_tap = true
 # gap_timeout = "150ms"
 # hold_timeout = "300ms"
 # permissive_hold = false
@@ -151,10 +151,9 @@ combos = [
   { actions = ["Enter", "Space"], output = "CapsWordToggle" },
 ]
 
-# REVISIT: Unclear how to use these. Example doesn't compile.
 [behavior.morse.profiles]
 # Home row mods
-HRM = { unilateral_tap = true, permissive_hold = true, hold_timeout = "250ms", gap_timeout = "250ms" }
+HRM = { unilateral_tap = true, enable_flow_tap = true, permissive_hold = true, hold_timeout = "250ms", gap_timeout = "250ms" }
 
 # Thumb cluster
 THU = { hold_on_other_press = true, unilateral_tap = false, hold_timeout = "200ms", gap_timeout = "200ms" }
