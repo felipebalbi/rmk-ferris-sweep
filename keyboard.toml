@@ -105,9 +105,9 @@ wn9 = "WM(9, LGui)"
 # The number of available BLE profiles
 ble_profiles_num = 6
 
-debounce_time = 3
-event_channel_size = 64
-report_channel_size = 64
+debounce_time = 5
+#event_channel_size = 64
+#report_channel_size = 64
 
 [storage]
 
